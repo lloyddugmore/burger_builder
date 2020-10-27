@@ -8,7 +8,7 @@ class Modal extends Component {
 
     //Performance tune here.... NICE!!!
     shouldComponentUpdate(nextProps, nextState){
-        if (nextProps.show !== this.props.show){
+        if (nextProps.show !== this.props.show || nextProps.children !== this.props.children){
             return true;
         }
         return false;
