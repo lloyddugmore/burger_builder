@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary';
-
-//using a custom axios instance - a project can have many of these.
-import axios from '../../axios-orders';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import ContactData from '../Checkout/ContactData/ContactData';
 
 class Checkout extends Component {
 
     state = {
-        ingredients: {
-            "bacon" :1
-        },
-        loading: false
+        ingredients: null,
+        price: 0
     }
 
-    componentDidMount() {
-        console.log(this.props)
+    componentWillMount() {
         const queryParams = new URLSearchParams(this.props.location.search);
         const ingredients = {};
+        let price = 0;
         for (let param of queryParams.entries()) {
-            console.log('IN ', param)
-            ingredients[param[0]] = +param[1]
+            if(param[0] === 'price') {
+                price = param[1];
+            } else {
+                ingredients[param[0]] = +param[1];
+            }
         }
-        console.log(ingredients)
         this.setState(
-                {ingredients: ingredients}
-            )
+            {
+                ingredients: ingredients,
+                totalPrice: price
+            }
+        )
     }
 
     checkoutCancelledHandler = () => {
@@ -35,54 +35,23 @@ class Checkout extends Component {
     }
 
     checkoutContinuedHandler = () => {
-        this.setState({loading: true});
-
         this.props.history.replace('/checkout/contact-data');
-        //NOTE - best practice to calculate the price on the server, dont do it in the client, user could manipulate the price. 
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: "Bob",
-        //         address: {
-        //             street: 'Teststreet 1',
-        //             zipCode: '4223',
-        //             country: 'New Zealand'
-        //         },
-        //         email: 'test@test.com'
-        //     },
-        //     deliveryMethod: 'fastest'
-        // }
-
-        // //NOTE -- '.json' is for FIREBASE... special thing for firebase.
-        // axios.post('/orders.json', order)
-        // .then(response => {
-        //     this.setState({loading: false, purchasing: false});
-        // })
-        // .catch(error => {
-        //     this.setState({loading: false, purchasing: false});
-        // });
     }
 
     render () {
-
-        let output = '';
-        if (this.state.loading) {
-            output = <Spinner></Spinner>
-        } else {
-            output = <CheckoutSummary 
-                        ingredients={this.state.ingredients}
-                        checkoutCancelled={this.checkoutCancelledHandler}
-                        checkoutContinued={this.checkoutContinuedHandler}>
-                      </CheckoutSummary>
-        }
-
         return (
             <>
-                {output}
+            <CheckoutSummary 
+                ingredients={this.state.ingredients}
+                checkoutCancelled={this.checkoutCancelledHandler}
+                checkoutContinued={this.checkoutContinuedHandler}>
+            </CheckoutSummary>
+            <Route path={this.props.match.path + '/contact-data'} 
+                   render={(props) => (<ContactData ingredients={this.state.ingredients} totalPrice={this.state.totalPrice} {...props}></ContactData>)}>
+            </Route>
             </>
         );
     }
 }
 
-export default withErrorHandler(Checkout, axios);
+export default Checkout;
