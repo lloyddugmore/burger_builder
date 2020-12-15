@@ -1,68 +1,40 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Summary
 
-In the project directory, you can run:
+This is a complete end to end react project that allows a user to log in and create and order a burger.
 
-### `yarn start`
+It uses Redux, Authentication, Firebase, AXIOS, React hooks, React Router etc...
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The project was built by following this course on Udemy. 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8231828?start=465#content
 
-### `yarn test`
+## Startup
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```npm install```
+ 
+```npm start```
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Firebase notes
+Because this project uses a very simple firebase setup, there is no actual config required. You simply have to setup a new basic firebase DB in your google account and replace the firebase URL in ```axios-orders.js``` with your specific URL.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Data for firebase (ingredients)
+```
+{
+  "bacon" : 0,
+  "cheese" : 0,
+  "meat" : 0,
+  "salad" : 0
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Branches
 
-### `yarn eject`
+basic build is on ```main``` branch
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+redux build is on ```redux_phase``` branch (includes main)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+authentication build is on ```auth phase``` (includes redux_phase)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

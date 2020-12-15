@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
 
@@ -96,7 +98,6 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();//prevent the default of refreshing of the form 
-        this.setState({loading: true})
         
         //grab the form data
         const formData = {};
@@ -111,22 +112,7 @@ class ContactData extends Component {
             orderData: formData
         }
 
-        //NOTE -- '.json' is for FIREBASE... special thing for firebase.
-        axios.post('/orders.json', order)
-        .then(response => {
-            this.setState({loading: false})
-
-            // want to redirect back to home page
-            // NOTE - line below wont work initially - because of how we are rendering the component on checkout.js
-            // this.props.history.push('/'); 
-            // SOLUTION 1. Wrap this ContactData component with WithRouter
-            // SOLUTION 2. Pass props in the render method on Checkout component
-            // SOLUTION 2. is the solution chosen, therefore can do the below
-            this.props.history.push('/');
-        })
-        .catch(error => {
-            this.setState({loading: false});
-        });
+        this.props.onOrderBurger(order);
     }
 
     checkValidity(value, rules) {
@@ -194,7 +180,7 @@ class ContactData extends Component {
         }
 
         let form = '';
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner></Spinner>
         } else { 
             form = <form onSubmit={this.orderHandler}>
@@ -224,9 +210,16 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
