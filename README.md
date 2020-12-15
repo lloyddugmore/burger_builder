@@ -31,10 +31,10 @@ Because this project uses a very simple firebase setup, there is no actual confi
 
 ## Branches
 
-basic build is on ```main``` branch
+complete build is on ```main``` branch
 
-redux build is on ```redux_phase``` branch (includes main)
+redux build is on ```redux_phase``` branch
 
-authentication build is on ```auth phase``` (includes redux_phase)
+authentication build is on ```auth phase``` branch
 
 
