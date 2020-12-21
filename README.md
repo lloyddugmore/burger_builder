@@ -29,6 +29,12 @@ Because this project uses a very simple firebase setup, there is no actual confi
 }
 ```
 
+### Authentication setup - firebase
+Select & enable ```Email/Password``` in ```Authentication``` section on Firebase.com
+
+Grab the signup with email and password endpoint URL from here - https://firebase.google.com/docs/reference/rest/auth and replace api token value
+
+
 ## Branches
 
 complete build is on ```main``` branch
