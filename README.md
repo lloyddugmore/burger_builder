@@ -17,7 +17,16 @@ https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8
 
 
 ## Firebase notes
-Because this project uses a very simple firebase setup, there is no actual config required. You simply have to setup a new basic firebase DB in your google account and replace the firebase URL in ```axios-orders.js``` with your specific URL.
+Because this project uses a very simple firebase setup, there is no actual config required. You simply have to setup a new basic firebase DB in your google account and create a .env file in the root of your project with the following entries.
+
+```
+REACT_APP_FIREBASE_API_KEY=<place your api key here>
+REACT_APP_FIREBASE_URL=<place your firebase db url here>
+```
+
+Note--See this for help - https://codesandbox.io/s/env-vars-create-react-app-mr0rl?file=/src/App.js:85-135
+
+
 
 ### Data for firebase (ingredients)
 ```
@@ -29,10 +38,26 @@ Because this project uses a very simple firebase setup, there is no actual confi
 }
 ```
 
+### Rules for firebase
+```
+{
+  "rules": {
+     "ingredients" : {
+        ".read": "true",
+        ".write": "true",
+      },
+      "orders" : {
+        ".read": "auth != null",
+        ".write": "auth != null",
+      }
+  }
+}
+```
+
 ### Authentication setup - firebase
 Select & enable ```Email/Password``` in ```Authentication``` section on Firebase.com
 
-Grab the signup with email and password endpoint URL from here - https://firebase.google.com/docs/reference/rest/auth and replace api token value
+Grab the signup with email and password endpoint URL from here - https://firebase.google.com/docs/reference/rest/auth and replace api token value in your .env file. 
 
 
 ## Branches
