@@ -59,3 +59,10 @@ export const auth = (email, password, isSignup) => {
         });
     }
 }
+
+export const setAuthRedirect = (path) => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        path: path
+    }
+}
