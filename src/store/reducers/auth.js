@@ -4,7 +4,7 @@ const initialState = {
     error: null,
     loading: false,
     idToken: null,
-    userid: null,
+    userId: null,
     authRedirectPath: '/',
 };
 

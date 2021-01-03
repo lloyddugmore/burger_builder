@@ -49,6 +49,7 @@ Note--See this for help - https://codesandbox.io/s/env-vars-create-react-app-mr0
       "orders" : {
         ".read": "auth != null",
         ".write": "auth != null",
+          ".indexOn" : ["userId"]
       }
   }
 }
