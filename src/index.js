@@ -13,7 +13,8 @@ import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
 
 //to add the redux dev tools and other middleware - https://github.com/zalmoxisus/redux-devtools-extension#installation
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//redux dev tools only available in developement environment
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
