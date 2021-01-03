@@ -113,8 +113,6 @@ class ContactData extends Component {
             userId: this.props.userId
         }
 
-        console.log(order);
-
         this.props.onOrderBurger(order, this.props.token);
     }
 
@@ -137,9 +135,6 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        // console.log(event.target.value);
-        // console.log(inputIdentifier);
-
         //because it is bad practice to update state like this, we make a 
         //clone and have to do something special to do a 'deep copy'.
         const updatedOrderForm = {
