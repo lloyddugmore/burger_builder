@@ -70,3 +70,26 @@ redux build is on ```redux_phase``` branch
 authentication build is on ```auth phase``` branch
 
 
+## Build (Production)
+
+To build the project for production use the following command.
+
+```npm run build```
+
+This will create a ```build``` directory in your project.
+
+## Deployment/Hosting
+This project is hosted and deployed on firebase at https://burgerbuilderv3.web.app/
+Instructions for how to do this can be found on Firebase in the hosting section.
+
+Typically, you would need to install the ```firebase cli``` and then connect the cli to your ```google account``` and ```google project``` using ```firebase init``` command in the cli.
+
+After that is complete, you will simply run a simple firebase command like follows
+
+```firebase deploy```
+
+On successful deployment you will be given the URL the project was deployed on. 
+
+
+
+
