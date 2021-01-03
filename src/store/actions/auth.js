@@ -31,6 +31,11 @@ export const checkAuthTimeout = (expirationTime) => {
 }
 
 export const logout = () => {
+
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('userId');
+    
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -51,6 +56,13 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url, authData)
         .then(response => {
+
+            //save token in local storage to allow for browser refresh to not 'log the user out'
+            const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)
+            localStorage.setItem('idToken', response.data.idToken);
+            localStorage.setItem('expirationDate', expirationDate);
+            localStorage.setItem('userId', response.data.localId)
+
             dispatch(authSucess(response.data));
             dispatch(checkAuthTimeout(response.data.expiresIn));
         })
@@ -64,5 +76,25 @@ export const setAuthRedirect = (path) => {
     return {
         type: actionTypes.SET_AUTH_REDIRECT_PATH,
         path: path
+    }
+}
+
+//called on landing of '/' or on loading of base page (App.js) (browser refresh) 
+//used to automatically log user in iv token is valid
+export const authCheckState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('idToken');
+        if (!token) {
+            dispatch(logout());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if (expirationDate <= new Date()) {
+                dispatch(logout());
+            } else {
+                const userId = localStorage.getItem('userId');
+                dispatch(authSucess(token, userId));
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
+            }
+        }
     }
 }
