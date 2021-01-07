@@ -69,6 +69,8 @@ redux build is on ```redux_phase``` branch
 
 authentication build is on ```auth phase``` branch
 
+react-hooks implementation build is on ```react-hooks-conversion``` branch
+
 
 ## Build (Production)
 
