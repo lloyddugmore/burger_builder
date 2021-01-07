@@ -23,7 +23,7 @@ export default axiosClient => {
             axiosClient.interceptors.request.eject(reqInterceptor);
             axiosClient.interceptors.request.eject(respInterceptor);
         }
-    }, [reqInterceptor, respInterceptor]);
+    }, [reqInterceptor, respInterceptor, axiosClient.interceptors.request]);
 
     const errorConfirmedHandler = () => {
         setError(null);

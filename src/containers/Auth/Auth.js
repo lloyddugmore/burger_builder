@@ -9,7 +9,6 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Auth = (props) => {
-
     const [controls, setControls] = useState(
             {
                 email: {
@@ -43,11 +42,12 @@ const Auth = (props) => {
                 });
     const [isSignup, setIsSignup] = useState(true);
 
+    const {buildingBurger, authRedirectPath, onSetAuthRedirectPath} = props;
     useEffect(() => {
-        if (!props.buildingBurger && props.authRedirectPath !== '/'){
-            props.onSetAuthRedirectPath();
+        if (!buildingBurger && authRedirectPath !== '/'){
+            onSetAuthRedirectPath();
         }
-    });
+    }, [buildingBurger, authRedirectPath, onSetAuthRedirectPath]);
 
     const checkValidity = (value, rules) => {
         let isValid = true;
