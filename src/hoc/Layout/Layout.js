@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Auxilliary from '../Auxilliary';
@@ -6,37 +6,31 @@ import classes from './Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
-class Layout extends Component {
+const Layout = (props) => {
 
-    state = {
-        showSideDrawer: false
+    let [showSideDrawer, setShowSideDrawer] = useState(false);
+
+    const sideDrawerClosedHandler = () => {
+        setShowSideDrawer(false);
     }
 
-    sideDrawerClosedHandler = () => {
-        this.setState({
-            showSideDrawer: false
-        })
+    const sideDrawerOpenHandler = () => {
+        setShowSideDrawer(true);
     }
 
-    sideDrawerOpenHandler = () => {
-        this.setState((prevState) => {
-            return {showSideDrawer: !prevState.showSideDrawer}
-        })
-    }
-
-    render () {
-          return <Auxilliary>
-                <Toolbar open={this.sideDrawerOpenHandler} 
-                         isAuth={this.props.isAuthenticated}/>
-                <SideDrawer open={this.state.showSideDrawer} 
-                            closed={this.sideDrawerClosedHandler} 
-                            isAuth={this.props.isAuthenticated}>
-                </SideDrawer>
-                <main className={classes.Content}>
-                    {this.props.children} 
-                </main>
-            </Auxilliary>
-    }
+    return (
+        <Auxilliary>
+            <Toolbar open={sideDrawerOpenHandler} 
+                     isAuth={props.isAuthenticated}/>
+            <SideDrawer open={showSideDrawer} 
+                        closed={sideDrawerClosedHandler} 
+                        isAuth={props.isAuthenticated}>
+            </SideDrawer>
+            <main className={classes.Content}>
+                {props.children} 
+            </main>
+        </Auxilliary>
+    )
 } 
 
 const mapStateToProps = state => {
